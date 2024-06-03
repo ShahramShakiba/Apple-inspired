@@ -8,6 +8,7 @@ const Hero = () => {
   const [videoSrc, setVideoSrc] = useState(
     window.innerWidth < 760 ? smallHeroVideo : heroVideo
   );
+
   //dynamically modify the video depending on the width of the screen
   const handleVideoSrcSet = () => {
     setVideoSrc(window.innerWidth < 760 ? smallHeroVideo : heroVideo);
@@ -24,14 +25,23 @@ const Hero = () => {
   useGSAP(() => {
     gsap.to('#hero', {
       opacity: 1,
-      delay: 1.5,
+      y: 0,
+      delay: 2,
+      duration: 1,
+    });
+
+    gsap.to('#cta', {
+      opacity: 1,
+      y: -50,
+      delay: 2,
+      duration: 1,
     });
   }, []);
 
   return (
     <section className="relative w-full bg-black nav-height">
       <div className="flex flex-col w-full h-5/6 flex-center">
-        <p id="hero" className="hero-title">
+        <p id="hero" className="-translate-y-20 hero-title">
           iPhone 15 Pro
         </p>
 
@@ -46,6 +56,16 @@ const Hero = () => {
             <source src={videoSrc} type="video/mp4" />
           </video>
         </div>
+      </div>
+
+      <div
+        id="cta"
+        className="flex flex-col items-center translate-y-20 opacity-0"
+      >
+        <a href="#highLights" className="btn">
+          Buy
+        </a>
+        <p className="text-xl font-normal">From $199/month or $999</p>
       </div>
     </section>
   );
