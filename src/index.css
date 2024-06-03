@@ -22,7 +22,7 @@ canvas {
   touch-action: none;
 }
 
-.scrim-max-width {
+.screen-max-width {
   margin-inline-start: auto;
   margin-inline-end: auto;
   position: relative;
@@ -40,27 +40,27 @@ canvas {
   /* calculates the height dynamically based on the viewport height (100vh) minus 60 pixels. This approach ensures that the navigation element's height remains responsive and adjusts according to the available screen space. */
 
   .btn {
-    @apply px-5 py-2 rounded-3xl bg-blue my-5 hover:bg-transparent border border-transparent hover:border hover:text-blue hover:border-blue;
+    @apply px-5 py-2 my-5 border border-transparent rounded-3xl bg-blue hover:bg-transparent hover:border hover:text-blue hover:border-blue;
   }
 
   .color-container {
-    @apply flex items-center justify-center px-4 py-4 rounded-full bg-gray-300 backdrop-blur;
+    @apply flex items-center justify-center px-4 py-4 bg-gray-300 rounded-full backdrop-blur;
   }
 
   .size-btn-container {
-    @apply flex items-center justify-center p-1 rounded-full bg-gray-300 backdrop-blur ml-3 gap-1;
+    @apply flex items-center justify-center gap-1 p-1 ml-3 bg-gray-300 rounded-full backdrop-blur;
   }
 
   .size-btn {
-    @apply w-10 h-10 text-sm flex justify-center items-center bg-white text-black rounded-full transition-all;
+    @apply flex items-center justify-center w-10 h-10 text-sm text-black transition-all bg-white rounded-full;
   }
 
   .common-padding {
-    @apply sm:py-32 py-20 sm:px-10 px-5;
+    @apply px-5 py-20 sm:py-32 sm:px-10;
   }
 
   .section-heading {
-    @apply text-gray lg:text-6xl md:text-5xl text-3xl lg:mb-0 mb-5 font-medium opacity-0 translate-y-20;
+    @apply mb-5 text-3xl font-medium translate-y-20 opacity-0 text-gray lg:text-6xl md:text-5xl lg:mb-0;
   }
 
   .feature-text {
@@ -68,35 +68,35 @@ canvas {
   }
 
   .feature-text-container {
-    @apply w-full flex-center flex-col md:flex-row mt-10 md:mt-16 gap-5;
+    @apply flex-col w-full gap-5 mt-10 flex-center md:flex-row md:mt-16;
   }
 
   .feature-video {
-    @apply w-full h-full object-cover object-center scale-150 opacity-0;
+    @apply object-cover object-center w-full h-full scale-150 opacity-0;
   }
 
   .feature-video-container {
-    @apply w-full flex flex-col md:flex-row gap-5 items-center;
+    @apply flex flex-col items-center w-full gap-5 md:flex-row;
   }
 
   .link {
-    @apply text-blue hover:underline cursor-pointer flex items-center text-xl opacity-0 translate-y-20;
+    @apply flex items-center text-xl translate-y-20 opacity-0 cursor-pointer text-blue hover:underline;
   }
 
   .control-btn {
-    @apply ml-4 p-4 rounded-full bg-gray-300 backdrop-blur flex-center;
+    @apply p-4 ml-4 bg-gray-300 rounded-full backdrop-blur flex-center;
   }
 
   .hero-title {
-    @apply text-center font-semibold text-3xl text-gray-100 opacity-0 max-md:mb-10;
+    @apply text-3xl font-semibold text-center text-gray-100 opacity-0 max-md:mb-10;
   }
 
   .hiw-title {
-    @apply text-4xl md:text-7xl font-semibold text-center;
+    @apply text-4xl font-semibold text-center md:text-7xl;
   }
 
   .hiw-subtitle {
-    @apply text-gray font-semibold text-xl md:text-2xl py-10 text-center;
+    @apply py-10 text-xl font-semibold text-center text-gray md:text-2xl;
   }
 
   .hiw-video {
@@ -104,15 +104,15 @@ canvas {
   }
 
   .hiw-text-container {
-    @apply flex md:flex-row flex-col justify-between items-start gap-24;
+    @apply flex flex-col items-start justify-between gap-24 md:flex-row;
   }
 
   .hiw-text {
-    @apply text-gray text-xl font-normal md:font-semibold;
+    @apply text-xl font-normal text-gray md:font-semibold;
   }
 
   .hiw-bigtext {
-    @apply text-white text-3xl md:text-5xl font-normal md:font-semibold my-2;
+    @apply my-2 text-3xl font-normal text-white md:text-5xl md:font-semibold;
   }
 
   .video-carousel_container {

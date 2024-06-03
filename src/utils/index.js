@@ -21,7 +21,7 @@ import replay from "/assets/images/replay.svg";
 import play from "/assets/images/play.svg";
 import pause from "/assets/images/pause.svg";
 
-// Import JPEG
+// Import Images
 import yellow from "/assets/images/yellow.jpg";
 import blue from "/assets/images/blue.jpg";
 import white from "/assets/images/white.jpg";
@@ -51,7 +51,7 @@ export const replayImg = replay;
 export const playImg = play;
 export const pauseImg = pause;
 
-// Export JPEG
+// Export Images
 export const yellowImg = yellow;
 export const blueImg = blue;
 export const whiteImg = white;
