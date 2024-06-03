@@ -41,13 +41,13 @@
 <br/><br/>
 
 > _Which Concepts Have I Covered_: 
-01. __
-02. __
-03. __
-04. __
-05. __
-06. __
-07. __
+01. _Install all dependencies such as 'Vite', 'React.js', 'Tailwind CSS', 'GSAP' and 'Three.js'_
+02. _Utilizing Videos for the Hero section to have a dynamic experience_
+03. _Build a Video Carousel Component, a custom video slider with progress tracking_
+04. _Utilizing "scrollTrigger" to schedule playing the video_
+05. _Utilizing "useGSAP" along with "onLoadedMetadata" property to play the videos_
+06. _Handle the Progress duration exactly as Video duration_
+07. _Animate the Video slider using GSAP animations_
 08. __
 09. __
 10. __
