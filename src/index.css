@@ -27,6 +27,7 @@ canvas {
   margin-inline-end: auto;
   position: relative;
   max-width: 1120px;
+  /* color: #526f88 */
 }
 
 @layer utilities {

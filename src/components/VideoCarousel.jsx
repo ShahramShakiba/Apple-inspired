@@ -2,12 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { highlightsSlides } from '../constants';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { pauseImg, playImg, replayImg } from '../utils';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const VideoCarousel = () => {
   const videoRef = useRef([]);
-  const videoSpanRef = useRef([]);
-  const videoDivRef = useRef([]);
+  const videoSpanRef = useRef([]); //container of progress
+  const videoDivRef = useRef([]); //container of dot
 
   const [loadedData, setLoadedData] = useState([]);
   const [video, setVideo] = useState({
@@ -19,12 +22,13 @@ const VideoCarousel = () => {
   });
   const { isEnd, startPlay, videoId, isLastVideo, isPlaying } = video;
 
+  //=======playing the videos
   useGSAP(() => {
     gsap.to('#video', {
       // Desc-04 ↓
       scrollTrigger: {
         trigger: '#video',
-        toggleActions: 'restart none none none',
+        toggleActions: 'restart none none none', // Desc-06 ↓
       },
 
       onComplete: () => {
@@ -37,6 +41,7 @@ const VideoCarousel = () => {
     });
   }, [isEnd, videoId]);
 
+  //=======playing the videos
   useEffect(() => {
     // Desc-01 ↓
     loadedData.length > 3 && !isPlaying
@@ -44,26 +49,77 @@ const VideoCarousel = () => {
       : startPlay && videoRef.current[videoId].play();
   }, [startPlay, videoId, isPlaying, loadedData]);
 
-  //play videos - Desc-05 ↓
+  //=======playing videos - Desc-05 ↓
   const handleLoadedMetadata = (index, event) =>
     setLoadedData((pre) => [...pre, event]);
 
+  //=======Track the progress of the videos
   useEffect(() => {
-    const currentProgress = 0;
+    let currentProgress = 0;
     let span = videoSpanRef.current;
 
     if (span[videoId]) {
       // Desc-02 ↓
-
-      //animate videos
       let anim = gsap.to(span[videoId], {
-        onUpdate: () => {},
+        onUpdate: () => {
+          // Desc-07 ↓
+          const progress = Math.ceil(anim.progress() * 100);
 
-        //keep track of all videos
-        onComplete: () => {},
+          if (progress != currentProgress) {
+            currentProgress = progress;
+
+            gsap.to(videoDivRef.current[videoId], {
+              width:
+                window.innerWidth < 760
+                  ? '10vw' //mobile
+                  : window.innerWidth < 1200
+                  ? '10vw' //tablet
+                  : '4vw', //laptop
+            });
+
+            //background color of the progress bar
+            gsap.to(span[videoId], {
+              width: `${currentProgress}%`,
+              backgroundColor: '#70749c',
+            });
+          }
+        },
+
+        // Desc-08 ↓
+        onComplete: () => {
+          if (isPlaying) {
+            gsap.to(videoDivRef.current[videoId], {
+              // Desc-09 ↓
+              width: '12px',
+            });
+
+            gsap.to(span[videoId], {
+              backgroundColor: '#afafaf',
+            });
+          }
+        },
       });
+
+      if (videoId === 0) {
+        anim.restart();
+      }
+
+      //modify how long animation last
+      const animUpdate = () => {
+        anim.progress(
+          videoRef.current[videoId].currentTime /
+            highlightsSlides[videoId].videoDuration
+        );
+      };
+
+      if (isPlaying) {
+        // ticker is update the progress-bar
+        gsap.ticker.add(animUpdate);
+      } else {
+        gsap.ticker.remove(animUpdate);
+      }
     }
-  }, [videoId, startPlay]);
+  }, [videoId, startPlay, isPlaying]);
 
   //handle Progression Tracking
   const handleProcess = (type, i) => {
@@ -125,6 +181,11 @@ const VideoCarousel = () => {
                   }}
                   // Desc-05 ↓
                   onLoadedMetadata={(event) => handleLoadedMetadata(i, event)}
+                  onEnded={() =>
+                    i !== 3
+                      ? handleProcess('video-end', i)
+                      : handleLoadedMetadata('video-last')
+                  }
                 >
                   <source src={list.video} type="video/mp4" />
                 </video>
@@ -193,7 +254,7 @@ export default VideoCarousel;
 - if we came to the end & not playing then pause the video
 
 * Desc-02 
-- animate the progress of the video duration
+- animate the progress of the video duration - animation to move the indicator
 
 * Desc-03
 - we get each video, nut we don't need to do anything with it, so we can just call it "_"
@@ -214,7 +275,21 @@ useEffect(() => {
 
   - and this useEffect will trigger video play
 
-  
+
+* Desc-06 
+- 'restart none none none' means that when the trigger is activated, the animation will restart from the beginning and will not be affected by any toggling actions in any direction. 
+- This ensures that the animation consistently restarts when triggered without any additional effects.
+
+* Desc-07 
+- get the progress of the video * 100 to get the percent
+
+* Desc-08
+- keep track of all videos duration and modify the duration of the progress to be exactly as the duration of the videos
+- when the video is ended, replace the progress bar with the indicator and change the background color
+
+* Desc-09 
+- get back to a dot after completing
+
 
 * playsInline={true}:
 - the video should play inline rather than in fullscreen mode on supported devices.
