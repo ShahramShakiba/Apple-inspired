@@ -60,7 +60,7 @@ canvas {
   }
 
   .section-heading {
-    @apply mb-5 text-3xl font-medium translate-y-20 opacity-0 text-gray lg:text-6xl md:text-5xl lg:mb-0;
+    @apply mb-5 mr-4 text-3xl font-medium translate-y-20 opacity-0 text-gray lg:text-6xl md:text-5xl lg:mb-0;
   }
 
   .feature-text {
@@ -80,7 +80,7 @@ canvas {
   }
 
   .link {
-    @apply flex items-center text-xl translate-y-20 opacity-0 cursor-pointer text-blue hover:underline;
+    @apply flex items-center mb-5 translate-y-20 opacity-0 cursor-pointer lg:mb-0 lg:text-xl md:text-lg sm:text-base text-blue hover:underline;
   }
 
   .control-btn {
