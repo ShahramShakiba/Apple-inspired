@@ -27,7 +27,6 @@ canvas {
   margin-inline-end: auto;
   position: relative;
   max-width: 1120px;
-  /* color: #526f88 */
 }
 
 @layer utilities {
@@ -117,7 +116,7 @@ canvas {
   }
 
   .video-carousel_container {
-    @apply relative sm:w-[70vw] w-[88vw] md:h-[70vh] sm:h-[50vh] h-[35vh];
+    @apply relative w-[88vw] sm:w-[75vw] md:w-[72vw] lg:w-[70vw] xl:w-[50vw] h-[35vh] sm:h-[50vh] md:h-[52vh] lg:h-[55vh];
   }
 
   .g_fadeIn {

@@ -24,6 +24,12 @@ const VideoCarousel = () => {
 
   //=======playing the videos
   useGSAP(() => {
+    gsap.to('#slider', {
+      transform: `translateX(${-100 * videoId}%)`,
+      duration: 2,
+      ease: 'power2.inOut',
+    });
+
     gsap.to('#video', {
       // Desc-04 ↓
       scrollTrigger: {
@@ -48,10 +54,6 @@ const VideoCarousel = () => {
       ? videoRef.current[videoId].pause()
       : startPlay && videoRef.current[videoId].play();
   }, [startPlay, videoId, isPlaying, loadedData]);
-
-  //=======playing videos - Desc-05 ↓
-  const handleLoadedMetadata = (index, event) =>
-    setLoadedData((pre) => [...pre, event]);
 
   //=======Track the progress of the videos
   useEffect(() => {
@@ -154,21 +156,35 @@ const VideoCarousel = () => {
         }));
         break;
 
+      case 'pause':
+        setVideo((pre) => ({
+          ...pre,
+          isPlaying: !pre.isPlaying,
+        }));
+        break;
+
       default:
         return video;
     }
   };
 
+  //=======playing videos - Desc-05 ↓
+  const handleLoadedMetadata = (i, event) =>
+    setLoadedData((pre) => [...pre, event]);
+
   return (
     <>
       <div className="flex items-center">
         {highlightsSlides.map((list, i) => (
-          <div key={list.id} id="slider" className="pr-10 sm:pr-20">
+          <div key={list.id} id="slider" className="pr-20">
             <div className="video-carousel_container">
               {/*======= Videos =======*/}
               <div className="w-full h-full overflow-hidden bg-black rounded-3xl flex-center">
                 <video
                   id="video"
+                  className={`${
+                    list.id === 2 && 'translate-x-44'
+                  } pointer-events-none`}
                   playsInline={true}
                   preload="auto"
                   muted
@@ -184,7 +200,7 @@ const VideoCarousel = () => {
                   onEnded={() =>
                     i !== 3
                       ? handleProcess('video-end', i)
-                      : handleLoadedMetadata('video-last')
+                      : handleProcess('video-last')
                   }
                 >
                   <source src={list.video} type="video/mp4" />
