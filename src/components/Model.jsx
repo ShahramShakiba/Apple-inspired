@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import ModelView from './ModelView';
 import { yellowImg } from '../utils';
+import { models, sizes } from '../constants';
 
 const Model = () => {
   const [size, setSize] = useState('small');
@@ -78,6 +79,40 @@ const Model = () => {
             >
               <View.Port />
             </Canvas>
+          </div>
+
+          {/*======= Colors & Sizes =======*/}
+          <div className="w-full mx-auto">
+            <p className="mb-5 text-sm font-light text-center">{model.title}</p>
+
+            <div className="flex-center">
+              <ul className="color-container">
+                {models.map((item, i) => (
+                  <li
+                    key={i}
+                    className="w-6 h-6 mx-2 rounded-full cursor-pointer"
+                    style={{ backgroundColor: item.color[0] }}
+                    onClick={() => setModel(item)}
+                  />
+                ))}
+              </ul>
+
+              <button className="size-btn-container">
+                {sizes.map(({ label, value }) => (
+                  <span
+                    key={label}
+                    className="size-btn"
+                    style={{
+                      backgroundColor: size === value ? 'white' : 'transparent',
+                      color: size === value ? 'black' : 'white',
+                    }}
+                    onClick={() => setSize(value)}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </button>
+            </div>
           </div>
         </div>
       </div>
