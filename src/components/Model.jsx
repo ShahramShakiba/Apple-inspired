@@ -1,3 +1,5 @@
+import { Canvas } from '@react-three/fiber';
+import { View } from '@react-three/drei';
 import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import * as THREE from 'three';
@@ -13,20 +15,25 @@ const Model = () => {
     img: yellowImg,
   });
 
-  //camera control for the model view
+  //"Camera" control for the model view
   const cameraControlSmall = useRef();
   const cameraControlLarge = useRef();
 
-  //keep track of the model - to animate its property
+  //keep track of the "Model" - to animate its property
   const small = useRef(new THREE.Group());
+  const large = useRef(new THREE.Group());
 
-  useGSAP(() => {}, [
+  //"Rotation"
+  const [smallRotation, setSmallRotation] = useState(0);
+  const [largeRotation, setLargeRotation] = useState(0);
+
+  useGSAP(() => {
     gsap.to('#heading', {
       opacity: 1,
       y: 0,
       duration: 0.8,
-    }),
-  ]);
+    });
+  }, []);
 
   return (
     <section className="common-padding">
@@ -37,7 +44,40 @@ const Model = () => {
 
         <div className="flex flex-col items-center mt-5">
           <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
-            <ModelView />
+            <ModelView
+              index={1}
+              groupRef={small}
+              gsapType="view1"
+              controlRef={cameraControlSmall}
+              setRotationState={setSmallRotation}
+              item={model}
+              size={size}
+            />
+
+            <ModelView
+              index={2}
+              groupRef={large}
+              gsapType="view2"
+              controlRef={cameraControlLarge}
+              setRotationState={setLargeRotation}
+              item={model}
+              size={size}
+            />
+
+            <Canvas
+              className="w-full h-full"
+              style={{
+                position: 'fixed',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                overflow: 'hidden',
+              }}
+              eventSource={document.getElementById('root')}
+            >
+              <View.Port />
+            </Canvas>
           </div>
         </div>
       </div>
