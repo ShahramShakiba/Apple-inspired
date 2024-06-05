@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import {
   Html,
   OrbitControls,
@@ -30,7 +31,7 @@ const ModelView = ({
       <PerspectiveCamera makeDefault position={[0, 0, 4]} />
       <Lights />
 
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense fallback={<Html><div>Loading</div></Html>}>
         <Iphone />
       </Suspense>
     </View>
@@ -38,3 +39,7 @@ const ModelView = ({
 };
 
 export default ModelView;
+
+/* <Html></Html>
+In React Three Fiber, the <Html> component allows for the rendering of standard HTML elements within a Three.js scene. This feature enables developers to incorporate familiar web elements, such as divs, texts, images, or other HTML content, seamlessly into their 3D scenes.
+*/

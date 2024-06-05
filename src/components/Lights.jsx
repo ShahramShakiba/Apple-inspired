@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { Environment, Lightformer } from '@react-three/drei';
 
 const Lights = () => {
@@ -33,7 +34,8 @@ const Lights = () => {
       <spotLight
         position={[-2, 10, 5]}
         angle={0.15}
-        penumbra={1} // the penumbra is the soft edge of a shadow cast by a point light
+        // the penumbra is the soft edge of a shadow cast by a point light
+        penumbra={1}
         decay={0} // the amount the light dims as it moves away from the source
         intensity={Math.PI * 0.2} // the light intensity
         color={'#f8f9fa'}
