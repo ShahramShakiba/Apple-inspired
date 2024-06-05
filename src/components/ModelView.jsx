@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unknown-property */
+import { Suspense } from 'react';
+import * as THREE from 'three';
 import {
   Html,
   OrbitControls,
   View,
   PerspectiveCamera,
 } from '@react-three/drei';
-import * as THREE from 'three';
 import Lights from './Lights';
-import { Suspense } from 'react';
 import Iphone from './Iphone';
 
 const ModelView = ({
@@ -15,7 +15,7 @@ const ModelView = ({
   groupRef,
   gsapType,
   controlRef,
-  setRotationSize,
+  setRotationState,
   size,
   item,
 }) => {
@@ -23,17 +23,38 @@ const ModelView = ({
     <View
       index={index}
       id={gsapType}
-      className={`border-2 border-red-500 w-full h-full ${
-        index === 2
-      } ? 'right-[-100%] : '`}
+      className={`w-full h-full ${index === 2} ? 'right-[-100%] : '`}
     >
       <ambientLight intensity={0.3} />
       <PerspectiveCamera makeDefault position={[0, 0, 4]} />
       <Lights />
 
-      <Suspense fallback={<Html><div>Loading</div></Html>}>
-        <Iphone />
-      </Suspense>
+      <OrbitControls
+        makeDefault
+        ref={controlRef}
+        enableZoom={false}
+        enablePan={false} //disable moving around
+        rotateSpeed={0.4}
+        target={new THREE.Vector3(0, 0, 0)} //position at the center
+        onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())}
+        //get the angle of the camera to know where we are
+      />
+
+      <group
+        ref={groupRef}
+        name={`${index === 1} ? 'small' : 'large'`}
+        position={[0, 0, 0]}
+      >
+        <Suspense
+          fallback={
+            <Html>
+              <div>Loading</div>
+            </Html>
+          }
+        >
+          <Iphone />
+        </Suspense>
+      </group>
     </View>
   );
 };
@@ -42,4 +63,10 @@ export default ModelView;
 
 /* <Html></Html>
 In React Three Fiber, the <Html> component allows for the rendering of standard HTML elements within a Three.js scene. This feature enables developers to incorporate familiar web elements, such as divs, texts, images, or other HTML content, seamlessly into their 3D scenes.
+*/
+
+/* getAzimuthalAngle()
+The `getAzimuthalAngle` function specifically retrieves the azimuthal angle of the camera, which represents the horizontal angle of the camera relative to its target position.
+
+In summary, `getAzimuthalAngle` in React Three Fiber enables you to retrieve the horizontal angle of the camera, offering insights into its positioning within a 3D environment. 
 */
