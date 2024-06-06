@@ -49,8 +49,13 @@
 06. _Handle the Progress duration exactly as Video duration_
 07. _Animate the Video slider using GSAP animations_
 08. _Create a custom component for rendering our Models using react three fiber_
-09. __
-10. __
+09. _Using "View" component for rendering 3D objects and scenes._
+10. _Using "Environment" to defining the overall look and feel of a background environment for the scene 3D scene._
+11. _Using Lightformer to create custom lights with various shapes and properties in a 3D scene._
+12. _Using https://gltf.pmnd.rs/ to convert our model into jsx codes_
+13. __
+14. __
+15. __
  
 <br/>
 
