@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import * as THREE from 'three';
 import {
   Html,
@@ -23,23 +23,20 @@ const ModelView = ({
     <View
       index={index}
       id={gsapType}
-      className={`w-full h-full ${index === 2} ? 'right-[-100%] : '`}
+      className={`w-full h-full ${index === 2 ? 'right-[-100%]' : ''}`}
     >
       <ambientLight intensity={0.3} />
       <PerspectiveCamera makeDefault position={[0, 0, 4]} />
       <Lights />
-
       <OrbitControls
         makeDefault
         ref={controlRef}
         enableZoom={false}
         enablePan={false} //disable moving around
-        rotateSpeed={0.4}
+        rotateSpeed={0.5}
         target={new THREE.Vector3(0, 0, 0)} //position at the center
-        onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())}
-        //get the angle of the camera to know where we are
+        onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())} //get the angle of the camera to know where we are
       />
-
       <group
         ref={groupRef}
         name={`${index === 1} ? 'small' : 'large'`}
@@ -52,7 +49,11 @@ const ModelView = ({
             </Html>
           }
         >
-          <Iphone />
+          <Iphone
+            scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
+            item={item}
+            size={size}
+          />
         </Suspense>
       </group>
     </View>

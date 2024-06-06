@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { View } from '@react-three/drei';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import * as THREE from 'three';
 import gsap from 'gsap';
@@ -36,13 +36,21 @@ const Model = () => {
     });
   }, []);
 
+  useEffect(() => {
+    // Set the pixel ratio
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      const renderer = new THREE.WebGLRenderer({ canvas });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+    }
+  }, []);
+
   return (
     <section className="common-padding">
       <div className="screen-max-width">
         <h1 id="heading" className="section-heading">
           Take a closer look.
         </h1>
-
         <div className="flex flex-col items-center mt-5">
           <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
             <ModelView
@@ -54,7 +62,6 @@ const Model = () => {
               item={model}
               size={size}
             />
-
             <ModelView
               index={2}
               groupRef={large}
@@ -64,7 +71,6 @@ const Model = () => {
               item={model}
               size={size}
             />
-
             <Canvas
               className="w-full h-full"
               style={{
@@ -80,11 +86,9 @@ const Model = () => {
               <View.Port />
             </Canvas>
           </div>
-
           {/*======= Colors & Sizes =======*/}
           <div className="w-full mx-auto">
             <p className="mb-5 text-sm font-light text-center">{model.title}</p>
-
             <div className="flex-center">
               <ul className="color-container">
                 {models.map((item, i) => (
@@ -96,7 +100,6 @@ const Model = () => {
                   />
                 ))}
               </ul>
-
               <button className="size-btn-container">
                 {sizes.map(({ label, value }) => (
                   <span
