@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import ModelView from './ModelView';
 import { yellowImg } from '../utils';
 import { models, sizes } from '../constants';
+import { animateWithGsapTimeline } from '../utils/animations';
 
 const Model = () => {
   const [size, setSize] = useState('small');
@@ -28,6 +29,37 @@ const Model = () => {
   const [smallRotation, setSmallRotation] = useState(0);
   const [largeRotation, setLargeRotation] = useState(0);
 
+  const timeLine = gsap.timeline();
+
+  useEffect(() => {
+    if (size === 'large') {
+      animateWithGsapTimeline(
+        timeLine,
+        small,
+        smallRotation,
+        '#view1',
+        '#view2',
+        {
+          transform: 'translateX(-100%)',
+          duration: 2,
+        }
+      );
+    }
+
+    if (size === 'small') {
+      animateWithGsapTimeline(
+        timeLine,
+        large,
+        largeRotation,
+        '#view2',
+        '#view1',
+        {
+          transform: 'translateX(0)',
+          duration: 2,
+        }
+      );
+    }
+  }, [size]);
   useGSAP(() => {
     gsap.to('#heading', {
       opacity: 1,
