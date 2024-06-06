@@ -53,11 +53,17 @@
 10. _Using "Environment" to defining the overall look and feel of a background environment for the scene 3D scene._
 11. _Using Lightformer to create custom lights with various shapes and properties in a 3D scene._
 12. _Using https://gltf.pmnd.rs/ to convert our model into jsx codes_
-13. __
+13. _Add Animation to our Apple Model with GSAP using timeline()_
 14. __
 15. __
  
 <br/>
+
+
+<!-------- I developed a website resembling Apple's iPhone 15 Pro page useing React, Three.js, and GSAP.
+
+It attracted a good number of visitors, around ... and performed really well, loading in just ... seconds. The click-through rate was about ..., showing that people were engaging with the content.-------->
+
 
 <!-------- try it live -------->
 #### _Give it a go in real-time and give me a Star_ &nbsp; <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" alt="Glowing Star" width="25"  /> <a href="" target="_blank"> &nbsp; _Apple inspired_ </a> 
