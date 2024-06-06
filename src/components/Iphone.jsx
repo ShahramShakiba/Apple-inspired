@@ -1,9 +1,29 @@
 /* eslint-disable react/no-unknown-property */
 // pass scene.glb into https://gltf.pmnd.rs/ to convert it into jsx codes
-import { useGLTF} from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
+import { useEffect } from 'react';
+import * as THREE from 'three';
 
 function Iphone(props) {
   const { nodes, materials } = useGLTF('/models/scene.glb');
+
+  const texture = useTexture(props.item.img);
+
+  useEffect(() => {
+    Object.entries(materials).map((material) => {
+      // these are the material names that can't be changed color
+      if (
+        material[0] !== 'zFdeDaGNRwzccye' &&
+        material[0] !== 'ujsvqBWRMnqdwPx' &&
+        material[0] !== 'hUlRcbieVuIiOXG' &&
+        material[0] !== 'jlzuBkUzuJqgiAK' &&
+        material[0] !== 'xNrofRCqOXXHVZt'
+      ) {
+        material[1].color = new THREE.Color(props.item.color[0]);
+      }
+      material[1].needsUpdate = true;
+    });
+  }, [materials, props.item]);
 
   return (
     <group {...props} dispose={null}>
@@ -119,6 +139,7 @@ function Iphone(props) {
         material={materials.pIJKfZsazmcpEiU}
         scale={0.01}
       >
+        <meshStandardMaterial roughness={1} map={texture} />
       </mesh>
       <mesh
         castShadow
